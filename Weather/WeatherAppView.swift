@@ -9,17 +9,23 @@ import SwiftUI
 
 struct WeatherAppView: View {
     @State private var isNight = false
+    private let weather = Weather.init()
     
     var body: some View {
         ZStack {
-            BackgroundView(topColor: isNight ? .black : .blue, bottomColor: isNight ? .gray : Color("lightblue"))
+            BackgroundView(topColor: isNight ? .black : .blue, bottomColor: isNight ? .gray : .teal)
             VStack {
                 CityTextView(cityName: "Cupertino, CA")
                 WeatherStatusView(imageName: isNight ? "moon.stars.fill" : "cloud.sun.fill", temperature: 76)
                     .padding(.bottom, 40)
-                HStack(spacing: 20) {
-                    WeatherDayView(dayOfWeek: "TUE", imageName: "cloud.sun.fill", temperature: 74)
+                ScrollView(.horizontal) {
+                    HStack(spacing: 20) {
+                        ForEach(weather.cards) { card in
+                            WeatherDayView(dayOfWeek: card.dayOfWeek, imageName: card.imageName, temperature: card.temperature)
+                        }
+                    }
                 }
+                .padding(.horizontal)
                 Spacer()
                 Button {
                     isNight.toggle()
