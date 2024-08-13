@@ -13,7 +13,7 @@ struct WeatherAppView: View {
     
     var body: some View {
         ZStack {
-            BackgroundView(topColor: isNight ? .black : .blue, bottomColor: isNight ? .gray : .teal)
+            BackgroundView(isNight: $isNight)
             VStack {
                 CityTextView(cityName: "Cupertino, CA")
                 WeatherStatusView(imageName: isNight ? "moon.stars.fill" : "cloud.sun.fill", temperature: 76)

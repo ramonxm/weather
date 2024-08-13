@@ -8,15 +8,16 @@
 import SwiftUI
 
 struct BackgroundView: View {
-    var topColor: Color
-    var bottomColor: Color
+   @Binding var isNight: Bool
     
     var body: some View {
-       LinearGradient(gradient: Gradient(colors: [topColor, bottomColor]),                      startPoint: .topLeading, endPoint: .bottomTrailing)
-        .ignoresSafeArea(.all)
+        ContainerRelativeShape()
+            .fill(isNight ? Color.black.gradient : Color.blue.gradient)
+            .ignoresSafeArea()
     }
 }
 
 #Preview {
-    BackgroundView(topColor: .red, bottomColor: .purple)
+    @State var isNight = true
+    return BackgroundView(isNight: $isNight)
 }
